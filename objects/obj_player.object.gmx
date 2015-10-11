@@ -189,7 +189,7 @@ if (place_meeting(x + hsp, y, obj_wall_slope))
     var yoffset = 0;
     var ysteps = abs(hsp * 1);
     
-    // if hsp has been reduced to zero, then there isn't an open space to move in to
+    // if hsp has been reduced to near zero, then there isn't an open space to move in to
     while (place_meeting(x + hsp, y + yoffset, obj_wall) &amp;&amp; (hsp &lt; -1 || hsp &gt; 1))
     {
         yoffset -= 1;
@@ -203,6 +203,30 @@ if (place_meeting(x + hsp, y, obj_wall_slope))
         }
     }
     y += yoffset;
+}
+
+// if there is nothing below where the object will be
+if ( ! place_meeting(x + hsp, y + 1, obj_wall))
+{
+    // check for slopes beneath the object to descend on
+    var ysteps = abs(hsp * 1);
+    if (place_meeting(x + hsp, y + ysteps, obj_wall_slope))
+    {
+        var yoffset = 0;
+        
+        while (place_meeting(x + hsp, y + ysteps + yoffset, obj_wall))
+        {
+            yoffset -= 1;
+            
+            if (yoffset &lt; -ysteps)
+            {
+                ysteps = 0;
+                yoffset = 0;
+                break;
+            }
+        }
+        y += ysteps + yoffset;
+    }
 }
 
 
@@ -243,7 +267,7 @@ if (bbox_right &lt; 0)
 }
 else if (bbox_left &gt; room_width)
 {
-    x = 0;
+    x = (bbox_right - bbox_left);
 }
 
 if (bbox_top &gt; room_height)
