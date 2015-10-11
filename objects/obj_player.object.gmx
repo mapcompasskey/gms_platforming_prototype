@@ -189,8 +189,8 @@ if (place_meeting(x + hsp, y, obj_wall_slope))
     var yoffset = 0;
     var ysteps = abs(hsp * 1);
     
-    // if hsp has been reduced to zero, then there isn't an open space to move into
-    while (place_meeting(x + hsp, y + yoffset, obj_wall) &amp;&amp; hsp != 0)
+    // if hsp has been reduced to zero, then there isn't an open space to move in to
+    while (place_meeting(x + hsp, y + yoffset, obj_wall) &amp;&amp; (hsp &lt; -1 || hsp &gt; 1))
     {
         yoffset -= 1;
         
@@ -233,13 +233,23 @@ if (place_meeting(x, y + vsp, obj_wall))
 y += vsp;
 
 
-/*
-// make sure the object isn't outside the room
-if (bbox_left &lt; 0 || bbox_right &gt;= room_width)
+/**
+ * Is Outside the Room
+ */
+
+if (bbox_right &lt; 0)
 {
-    x = clamp(x, x - bbox_left, room_width - 1 - (bbox_right - x));
+    x = room_width - (bbox_right - bbox_left);
 }
-*/
+else if (bbox_left &gt; room_width)
+{
+    x = 0;
+}
+
+if (bbox_top &gt; room_height)
+{
+    y = 0;
+}
 
 </string>
           </argument>
