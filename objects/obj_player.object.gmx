@@ -179,12 +179,37 @@ if (on_moving_wall != 0)
 }
 
 
+/**
+ * Is Colliding with Sloped Walls
+ */
+
+// check horizontal collision with slopes (using precision mask)
+if (place_meeting(x + hsp, y, obj_wall_slope))
+{
+    var yoffset = 0;
+    var ysteps = abs(hsp * 1);
+    
+    // if hsp has been reduced to zero, then there isn't an open space to move into
+    while (place_meeting(x + hsp, y + yoffset, obj_wall) &amp;&amp; hsp != 0)
+    {
+        yoffset -= 1;
+        
+        // if an open vertical space couldn't be found
+        if (yoffset &lt; -ysteps)
+        {
+            // move back one horizontally and try again
+            yoffset = 0;
+            hsp -= sign(hsp);
+        }
+    }
+    y += yoffset;
+}
+
 
 /**
  * Is Colliding with Walls
  */
 
-/*
 // check horizontal collision
 if (place_meeting(x + hsp, y, obj_wall))
 {
@@ -193,30 +218,6 @@ if (place_meeting(x + hsp, y, obj_wall))
         x += sign(hsp);
     }
     hsp = 0;
-}
-x += hsp;
-*/
-
-// check horizontal collision (with slopes using precision mask)
-if (place_meeting(x + hsp, y, obj_wall))
-{
-    yplus = 0;
-    while (place_meeting(x + hsp, y - yplus, obj_wall) &amp;&amp; yplus &lt;= abs(1*hsp))
-    {
-        yplus += 1;
-    }
-    if (place_meeting(x + hsp, y - yplus, obj_wall))
-    {
-        while ( ! place_meeting(x + sign(hsp), y, obj_wall))
-        {
-            x += sign(hsp);
-        }
-        hsp = 0;
-    }
-    else
-    {
-        y -= yplus
-    }
 }
 x += hsp;
 
@@ -239,6 +240,7 @@ if (bbox_left &lt; 0 || bbox_right &gt;= room_width)
     x = clamp(x, x - bbox_left, room_width - 1 - (bbox_right - x));
 }
 */
+
 </string>
           </argument>
         </arguments>

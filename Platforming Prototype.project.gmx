@@ -23,6 +23,7 @@
     <object>objects\obj_wall</object>
     <object>objects\obj_moving_wall</object>
     <object>objects\obj_moving_wall_vertical</object>
+    <object>objects\obj_wall_slope</object>
     <object>objects\obj_wall_slope_45</object>
     <object>objects\obj_wall_slope_26</object>
     <object>objects\obj_wall_slope_18</object>
