@@ -12,8 +12,9 @@
     <sprite>sprites\spr_wall_slope_45</sprite>
     <sprite>sprites\spr_wall_slope_26</sprite>
     <sprite>sprites\spr_wall_slope_18</sprite>
-    <sprite>sprites\spr_moving_platform</sprite>
     <sprite>sprites\spr_wall_slope_14</sprite>
+    <sprite>sprites\spr_moving_platform</sprite>
+    <sprite>sprites\spr_platform</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
@@ -28,6 +29,7 @@
     <object>objects\obj_wall_slope_26</object>
     <object>objects\obj_wall_slope_18</object>
     <object>objects\obj_wall_slope_14</object>
+    <object>objects\obj_platform</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\room1</room>

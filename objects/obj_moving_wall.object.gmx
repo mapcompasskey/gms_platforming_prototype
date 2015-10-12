@@ -26,6 +26,7 @@
           <argument>
             <kind>1</kind>
             <string>/// Initialize Variables
+event_inherited();
 hsp = 0;
 vsp = 0;
 movespeed_horz = 6;

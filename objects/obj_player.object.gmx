@@ -208,7 +208,7 @@ if (place_meeting(x + hsp, y, obj_wall_slope))
 // if there is nothing below where the object will be
 if ( ! place_meeting(x + hsp, y + 1, obj_wall))
 {
-    // check for slopes beneath the object to descend on
+    // check for slopes beneath the object to stick to and descend with
     var ysteps = abs(hsp * 1);
     if (place_meeting(x + hsp, y + ysteps, obj_wall_slope))
     {
@@ -226,6 +226,25 @@ if ( ! place_meeting(x + hsp, y + 1, obj_wall))
             }
         }
         y += ysteps + yoffset;
+    }
+}
+
+
+/**
+ * Is Colliding with Platforms
+ */
+
+// check vertical collision only when falling
+if (place_meeting(x, y + vsp, obj_platform) &amp;&amp; sign(vsp) == 1)
+{
+    // if not already inside a platform
+    if ( ! place_meeting(x, y, obj_platform))
+    {
+        while ( ! place_meeting(x, y + sign(vsp), obj_platform))
+        {
+            y += sign(vsp);
+        }
+        vsp = 0;
     }
 }
 
@@ -360,8 +379,25 @@ key_jump_released = keyboard_check_released(vk_space);
 
 // is object standing on a wall
 grounded = place_meeting(x, y + 1, obj_wall);
-//grounded = position_meeting(x, bbox_bottom + 1, obj_wall);
-//show_debug_message(grounded);
+
+// if not inside a platform
+if ( ! place_meeting(x, y, obj_platform))
+{
+    // is object standing on a platform
+    grounded_on_platform = place_meeting(x, y + 1, obj_platform);
+    if (grounded_on_platform &amp;&amp; ! grounded)
+    {
+        grounded = true;
+    }
+}
+
+/*
+grounded = false;
+if ( ! place_meeting(x, y, obj_wall))
+{
+    grounded = place_meeting(x, y + 1, obj_wall);
+}
+*/
 
 // reset walking
 hsp = 0;
