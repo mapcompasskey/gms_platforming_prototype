@@ -30,10 +30,13 @@
     <object>objects\obj_wall_slope_18</object>
     <object>objects\obj_wall_slope_14</object>
     <object>objects\obj_platform</object>
+    <object>objects\obj_moving_platform</object>
+    <object>objects\obj_moving_platform_vertical</object>
   </objects>
   <rooms name="rooms">
-    <room>rooms\room1</room>
+    <room>rooms\room2</room>
     <room>rooms\room0</room>
+    <room>rooms\room1</room>
   </rooms>
   <help>
     <rtf>help.rtf</rtf>
