@@ -18,6 +18,14 @@
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
+  <scripts name="scripts">
+    <scripts name="Player">
+      <script>scripts\scr_player_create.gml</script>
+      <script>scripts\scr_player_begin_step.gml</script>
+      <script>scripts\scr_player_step.gml</script>
+      <script>scripts\scr_player_begin_end_step.gml</script>
+    </scripts>
+  </scripts>
   <objects name="objects">
     <object>objects\obj_player</object>
     <object>objects\obj_enemy</object>
@@ -35,8 +43,8 @@
   </objects>
   <rooms name="rooms">
     <room>rooms\room2</room>
-    <room>rooms\room0</room>
     <room>rooms\room1</room>
+    <room>rooms\room0</room>
   </rooms>
   <help>
     <rtf>help.rtf</rtf>
