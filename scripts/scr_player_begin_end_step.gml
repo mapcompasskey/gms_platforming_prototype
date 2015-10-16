@@ -5,46 +5,89 @@ with (argument0)
      * Is Colliding with a Moving Platform
      */
     
-    // if not already inside a moving platform
-    if ( ! place_meeting(x, y, obj_moving_platform))
-    {
-        // if riding a moving platform
-        var inst = instance_place(x, y + vsp, obj_moving_platform);
-        if (inst != noone)
-        {
-            // check if the object can be repositioned horizontally along with the platform
-            var hsp_temp = inst.hsp;
-            if (place_meeting(x + hsp_temp, y, obj_wall))
-            {
-                while ( ! place_meeting(x + sign(hsp_temp), y, obj_wall))
-                {
-                    x += sign(hsp_temp);
-                }
-                hsp_temp = 0;
-            }
-            x += hsp_temp;
-        }
-    }
+
     
-    // if was standing on a descending platform during the Begin Step
+    /*
+    // if was standing on a moving platform during the Begin Step
     if (on_moving_platform != 0)
     {
+        // if the platform still exists
         if (instance_exists(on_moving_platform))
         {
-            // if the platform moved vertically
-            if (on_moving_platform.y != on_moving_platform.yprevious)
+            // if the platform moved
+            if (on_moving_platform.x != on_moving_platform.xprevious || on_moving_platform.y != on_moving_platform.yprevious)
             {
-                // check if the object can be repositioned vertically along with the platform
+                // check if the object can be repositioned along with the platform
+                var hsp_temp = on_moving_platform.hsp;
                 var vsp_temp = on_moving_platform.vsp;
-                if (place_meeting(x, y + vsp_temp, obj_wall))
+                if (place_meeting(x + hsp_temp, y + vsp_temp, obj_wall))
                 {
-                    while ( ! place_meeting(x, y + sign(vsp_temp), obj_wall))
+                    while ( ! place_meeting(x + sign(hsp_temp), y + sign(vsp_temp), obj_wall))
                     {
+                        x += sign(hsp_temp);
                         y += sign(vsp_temp);
                     }
+                    hsp_temp = 0;
                     vsp_temp = 0;
                 }
+                x += hsp_temp;
                 y += vsp_temp;
+            }
+        }
+    }
+    */
+    
+    // if was standing on a moving platform during the Begin Step
+    if (on_moving_platform != 0)
+    {
+        // if the platform still exists
+        if (instance_exists(on_moving_platform))
+        {
+            // if the platform moved
+            if (on_moving_platform.x != on_moving_platform.xprevious || on_moving_platform.y != on_moving_platform.yprevious)
+            {
+                // check if the object can be repositioned along with the platform
+                var hsp_temp = on_moving_platform.hsp;
+                var vsp_temp = on_moving_platform.vsp;
+                if (place_meeting(x + hsp_temp, y + vsp_temp, obj_wall))
+                {
+                    while ( ! place_meeting(x + sign(hsp_temp), y + sign(vsp_temp), obj_wall))
+                    {
+                        x += sign(hsp_temp);
+                        y += sign(vsp_temp);
+                    }
+                    hsp_temp = 0;
+                    vsp_temp = 0;
+                }
+                x += hsp_temp;
+                y += vsp_temp;
+            }
+        }
+    }
+    else
+    {
+        // * theres a problem where the rising platform passes right through a falling player
+        
+        // if inside a moving platform
+        var inst = instance_place(x, y, obj_moving_platform);
+        if (inst != noone)
+        {
+            // if the platform is moving up and is lower than the object
+            if (inst.y < 0 && inst.bbox_bottom > bbox_bottom)
+            {
+                var vsp_temp = 0;
+                vsp_temp = inst.bbox_top - bbox_bottom;
+                vsp_temp += sign(vsp_temp);
+                
+                // check if the object can be separated vertically from the platform
+                if (vsp_temp != 0)
+                {
+                    if ( ! place_meeting(x, y + vsp_temp, obj_wall))
+                    {
+                        y += vsp_temp;
+                    }
+                }
+                
             }
         }
     }
@@ -107,28 +150,28 @@ with (argument0)
         }
     }
     
-    // if riding a moving wall
-    var inst = instance_place(x, y + vsp, obj_moving_wall);
-    if (inst != noone)
-    {
-        // check if the object can be repositioned horizontally along with the platform
-        var hsp_temp = inst.hsp;
-        if (place_meeting(x + hsp_temp, y, obj_wall))
-        {
-            while ( ! place_meeting(x + sign(hsp_temp), y, obj_wall))
-            {
-                x += sign(hsp_temp);
-            }
-            hsp_temp = 0;
-        }
-        x += hsp_temp;
-    }
-    
-    // if was standing on a descending wall during the Begin Step
+    // if was standing on a moving wall during the Begin Step
     if (on_moving_wall != 0)
     {
         if (instance_exists(on_moving_wall))
         {
+            // if the wall has moved horizontally
+            if (on_moving_wall.x != on_moving_wall.xprevious)
+            {
+                // check if the object can be repositioned horizontally along with the platform
+                var hsp_temp = on_moving_wall.hsp;
+                if (place_meeting(x + hsp_temp, y, obj_wall))
+                {
+                    while ( ! place_meeting(x + sign(hsp_temp), y, obj_wall))
+                    {
+                        x += sign(hsp_temp);
+                    }
+                    hsp_temp = 0;
+                }
+                x += hsp_temp;
+            }
+            
+            // if the wall has descended
             if (on_moving_wall.y > on_moving_wall.yprevious)
             {
                 // check if the object can be repositioned vertically along with the wall
@@ -199,7 +242,7 @@ with (argument0)
     
     
     /**
-     * Is Colliding with Platforms
+     * Is Colliding with Platforms (or Moving Platform)
      */
     
     // check vertical collision only when falling

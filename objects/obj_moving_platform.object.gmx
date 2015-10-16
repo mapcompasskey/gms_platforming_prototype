@@ -29,8 +29,8 @@
 event_inherited();
 hsp = 0;
 vsp = 0;
-movespeed_horz = 2;
-movespeed_vert = 2;
+movespeed_horz = 4;
+movespeed_vert = 4;
 moving_horz = 1;
 moving_vert = 0;
 </string>
