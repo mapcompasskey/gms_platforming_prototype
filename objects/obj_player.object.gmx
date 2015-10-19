@@ -25,7 +25,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>scr_player_create(id);
+            <string>scr_player_create();
 </string>
           </argument>
         </arguments>
@@ -48,7 +48,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>scr_player_begin_end_step(id);
+            <string>scr_player_begin_end_step();
 </string>
           </argument>
         </arguments>
@@ -71,7 +71,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>scr_player_begin_step(id);
+            <string>scr_player_begin_step();
 </string>
           </argument>
         </arguments>
@@ -94,7 +94,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>scr_player_step(id);
+            <string>scr_player_step();
 </string>
           </argument>
         </arguments>
