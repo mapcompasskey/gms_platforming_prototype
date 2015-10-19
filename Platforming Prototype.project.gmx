@@ -25,7 +25,11 @@
       <script>scripts\scr_player_step.gml</script>
       <script>scripts\scr_player_begin_end_step.gml</script>
     </scripts>
+    <script>scripts\scr_text.gml</script>
   </scripts>
+  <fonts name="fonts">
+    <font>fonts\fnt</font>
+  </fonts>
   <objects name="objects">
     <object>objects\obj_player</object>
     <object>objects\obj_enemy</object>
@@ -40,6 +44,8 @@
     <object>objects\obj_platform</object>
     <object>objects\obj_moving_platform</object>
     <object>objects\obj_moving_platform_vertical</object>
+    <object>objects\obj_text</object>
+    <object>objects\obj_spawner</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\room1</room>
