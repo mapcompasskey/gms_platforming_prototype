@@ -43,8 +43,8 @@
   </objects>
   <rooms name="rooms">
     <room>rooms\room2</room>
-    <room>rooms\room0</room>
     <room>rooms\room1</room>
+    <room>rooms\room0</room>
   </rooms>
   <help>
     <rtf>help.rtf</rtf>

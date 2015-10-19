@@ -5,38 +5,6 @@ with (argument0)
      * Is Colliding with a Moving Platform
      */
     
-
-    
-    /*
-    // if was standing on a moving platform during the Begin Step
-    if (on_moving_platform != 0)
-    {
-        // if the platform still exists
-        if (instance_exists(on_moving_platform))
-        {
-            // if the platform moved
-            if (on_moving_platform.x != on_moving_platform.xprevious || on_moving_platform.y != on_moving_platform.yprevious)
-            {
-                // check if the object can be repositioned along with the platform
-                var hsp_temp = on_moving_platform.hsp;
-                var vsp_temp = on_moving_platform.vsp;
-                if (place_meeting(x + hsp_temp, y + vsp_temp, obj_wall))
-                {
-                    while ( ! place_meeting(x + sign(hsp_temp), y + sign(vsp_temp), obj_wall))
-                    {
-                        x += sign(hsp_temp);
-                        y += sign(vsp_temp);
-                    }
-                    hsp_temp = 0;
-                    vsp_temp = 0;
-                }
-                x += hsp_temp;
-                y += vsp_temp;
-            }
-        }
-    }
-    */
-    
     // if was standing on a moving platform during the Begin Step
     if (on_moving_platform != 0)
     {
@@ -66,28 +34,27 @@ with (argument0)
     }
     else
     {
-        // * theres a problem where the rising platform passes right through a falling player
-        
         // if inside a moving platform
         var inst = instance_place(x, y, obj_moving_platform);
         if (inst != noone)
         {
-            // if the platform is moving up and is lower than the object
-            if (inst.y < 0 && inst.bbox_bottom > bbox_bottom)
+            // if the platform is moving up
+            if (inst.vsp < 0)
             {
-                var vsp_temp = 0;
-                vsp_temp = inst.bbox_top - bbox_bottom;
-                vsp_temp += sign(vsp_temp);
-                
-                // check if the object can be separated vertically from the platform
-                if (vsp_temp != 0)
+                // if the platform was lower than this object before moving up into it
+                if (inst.bbox_top - inst.vsp > bbox_bottom)
                 {
-                    if ( ! place_meeting(x, y + vsp_temp, obj_wall))
+                    if (inst.bbox_top < bbox_bottom)
                     {
+                        // check if object can be repositioned vertically
+                        var vsp_temp = inst.bbox_top - bbox_bottom - 1;
+                        if (place_meeting(x, y + vsp_temp, obj_wall))
+                        {
+                            vsp_temp = 0;
+                        }
                         y += vsp_temp;
                     }
                 }
-                
             }
         }
     }
