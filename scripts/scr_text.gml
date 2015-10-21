@@ -7,7 +7,7 @@ with (txt)
     maxlength = view_wview[0];
     text = argument0;
     spd = argument1;
-    font = fnt;
+    font = fnt_04b03;
     
     text_length = string_length(text);
     font_size = font_get_size(font);
