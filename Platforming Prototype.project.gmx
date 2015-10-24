@@ -48,6 +48,7 @@
     <object>objects\obj_text</object>
     <object>objects\obj_spawner</object>
     <object>objects\obj_signpost</object>
+    <object>objects\obj_snow</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\room1</room>
