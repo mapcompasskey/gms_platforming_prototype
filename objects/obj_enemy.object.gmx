@@ -78,6 +78,8 @@ switch (irandom(4))
             <kind>1</kind>
             <string>/// Update
 
+if (global.pause) exit;
+
 // is object standing on a wall
 grounded = place_meeting(x, y + 1, obj_wall);
 

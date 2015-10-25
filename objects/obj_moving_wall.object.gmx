@@ -57,6 +57,8 @@ moving_vert = 0;
             <kind>1</kind>
             <string>/// Update
 
+if (global.pause) exit;
+
 hsp = moving_horz * movespeed_horz;
 vsp = moving_vert * movespeed_vert;
 

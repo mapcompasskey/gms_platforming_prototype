@@ -1,5 +1,7 @@
 // scr_player_begin_step()
 
+if (global.pause) exit;
+
 /**
  * Is Colliding with a Moving Platform
  */

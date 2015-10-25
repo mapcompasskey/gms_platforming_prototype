@@ -53,8 +53,10 @@
     <object>objects\obj_signpost</object>
     <object>objects\obj_snow</object>
     <object>objects\obj_menu</object>
+    <object>objects\obj_pause</object>
   </objects>
   <rooms name="rooms">
+    <room>rooms\rm_initialize</room>
     <room>rooms\rm_menu</room>
     <room>rooms\room1</room>
     <room>rooms\room0</room>

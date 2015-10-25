@@ -1,5 +1,7 @@
 // scr_player_step()
 
+if (global.pause) exit;
+
 /**
  * Update
  */
