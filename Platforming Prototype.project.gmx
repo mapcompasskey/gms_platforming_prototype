@@ -16,6 +16,7 @@
     <sprite>sprites\spr_moving_platform</sprite>
     <sprite>sprites\spr_platform</sprite>
     <sprite>sprites\spr_signpost</sprite>
+    <sprite>sprites\spr_arrow</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
@@ -27,9 +28,11 @@
       <script>scripts\scr_player_begin_end_step.gml</script>
     </scripts>
     <script>scripts\scr_text.gml</script>
+    <script>scripts\scr_menu.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fnt_04b03</font>
+    <font>fonts\fnt_options</font>
   </fonts>
   <objects name="objects">
     <object>objects\obj_player</object>
@@ -49,8 +52,10 @@
     <object>objects\obj_spawner</object>
     <object>objects\obj_signpost</object>
     <object>objects\obj_snow</object>
+    <object>objects\obj_menu</object>
   </objects>
   <rooms name="rooms">
+    <room>rooms\rm_menu</room>
     <room>rooms\room1</room>
     <room>rooms\room0</room>
     <room>rooms\room2</room>
