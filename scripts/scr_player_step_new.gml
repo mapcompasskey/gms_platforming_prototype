@@ -28,12 +28,21 @@ if ( ! place_meeting(x, y, obj_platform))
     }
 }
 
+// reset walking
+hsp = 0;
+walking = false;
+    
+// apply gravity
+if (vsp < max_vsp)
+{
+    vsp += grav;
+}
+
 
 /**
  * Is Crouching
  */
-
-if ( ! hurting && ! dying && ! jumping && ! launching)
+if ( ! hurting && ! dying && ! jumping && ! jumping)
 {
     // if grounded and pressing the DOWN button
     if (grounded && key_down)
@@ -52,25 +61,24 @@ if ( ! hurting && ! dying && ! jumping && ! launching)
 /**
  * Is Jumping or Falling
  */
-
-if ( ! hurting && ! dying && ! crouching && ! launching)
+if ( ! hurting && ! dying && ! crouching)
 {
     // if jumping again while in the air
     if (jumping && jumps < jumpsmax && key_jump_pressed)
     {
         jumps++;
-        velocity_y = -speed_y;
+        vsp = -jumpspeed;
     }
     
     /*
     if (key_jump)
     {
-        velocity_y = -speed_y;
+        vsp = -jumpspeed;
     }
     
     if (vsp < 0 && ! key_jump_held)
     {
-        velocity_y = max(vsp, 0);
+        vsp = max(vsp, 0);
     }
     */
     
@@ -79,17 +87,17 @@ if ( ! hurting && ! dying && ! crouching && ! launching)
     {
         jumping = true;
         grounded = false;
-        velocity_y = -speed_y;
+        vsp = -jumpspeed;
     }
     
     // reduce jump height
-    if (jumping && velocity_y < 0 && key_jump_released)
+    if (jumping && vsp < 0 && key_jump_released)
     {
-        velocity_y = velocity_y / 2;
+        vsp = vsp / 2;
     }
     
     // if falling
-    if (velocity_y > 0 && ! grounded)
+    if (vsp > 0 && ! grounded)
     {
         falling = true;
     }
@@ -107,63 +115,17 @@ if ( ! hurting && ! dying && ! crouching && ! launching)
 /**
  * Is Moving
  */
-
-if ( ! dying && ! hurting && ! crouching && ! launching)
+if ( ! dying && ! hurting && ! crouching)
 {    
     if (key_left)
     {
-        velocity_x = -speed_x;
+        hsp = -movespeed;
         walking = true;
     }
     else if (key_right)
     {
-        velocity_x = speed_x;
+        hsp = movespeed;
         walking = true;
-    }
-    else
-    {
-        velocity_x = 0;
-        walking = false;
-    }
-}
-
-
-/**
- * Is Launching
- */
-
-if ( ! dying && ! hurting && ! crouching && ! jumping)
-{
-    if ( ! launching)
-    {
-        if (mouse_check_button_released(mb_left))
-        {
-            var origin_x, origin_y, target_x, target_y, hypotenuse, duration;
-            
-            origin_x = x;
-            origin_y = bbox_bottom;
-            
-            target_x = mouse_x;
-            target_y = mouse_y;
-            
-            hypotenuse = point_distance(origin_x, origin_y, target_x, target_y);
-            duration = hypotenuse / 100;
-            if (duration > 1.25)
-            {
-                duration = 1.25;
-            }
-            
-            velocity_x = (target_x - origin_x) / duration;
-            velocity_y = (target_y + 0.5 * -gravity_rate * duration * duration - origin_y) / duration;
-            
-            grounded = false;
-            launching = true;
-        }
-    }
-    
-    if (grounded && launching)
-    {
-        launching = false;
     }
 }
 
